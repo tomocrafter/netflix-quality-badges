@@ -2,6 +2,7 @@ import { BadgeStore } from "./badges";
 import { capturePlaybackBadges } from "./capture";
 import { cardArtworks, detailSections } from "./netflix-dom";
 import { renderCardOverlay, renderDetailPanel } from "./render";
+import styles from "./styles.css" with { type: "text" };
 
 const store = new BadgeStore();
 const refresh = oncePerFrame(() => {
@@ -13,6 +14,10 @@ capturePlaybackBadges((entries) => store.addAll(entries));
 store.subscribe(refresh);
 
 document.addEventListener("DOMContentLoaded", () => {
+  const style = document.createElement("style");
+  style.textContent = styles;
+  document.head.append(style);
+
   new MutationObserver(refresh).observe(document.body, {
     subtree: true,
     childList: true,

@@ -15,7 +15,7 @@ jobs:
       - uses: oven-sh/setup-bun@v2
       - run: bun install --frozen-lockfile
       - run: bun run check
-      - run: cd dist && zip -r "../netflix-quality-badges-${GITHUB_REF_NAME}.zip" .
-      - run: gh release create "$GITHUB_REF_NAME" netflix-quality-badges-*.zip --generate-notes
+      - run: cd dist/extension && zip -r "../../netflix-quality-badges-${GITHUB_REF_NAME}.zip" .
+      - run: gh release create "$GITHUB_REF_NAME" netflix-quality-badges-*.zip dist/netflix-quality-badges.user.js --generate-notes
         env:
           GH_TOKEN: ${{ github.token }}
