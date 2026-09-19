@@ -1,0 +1,24 @@
+.nqb-badges {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  z-index: 1;
+  display: flex;
+  gap: 3px;
+  pointer-events: none;
+}
+
+.nqb-badges > span {
+  padding: 1px 4px;
+  border-radius: 3px;
+  background: rgb(0 0 0 / 72%);
+  color: rgb(255 255 255 / 85%);
+  font: 700 10px/1.4 system-ui, sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.nqb-badges > [data-label="4K"],
+.nqb-badges > [data-label="Atmos"] {
+  background: rgb(229 9 20 / 90%);
+  color: #fff;
+}

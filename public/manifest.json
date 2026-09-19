@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Netflix Quality Badges",
+  "version": "0.1.0",
+  "description": "Shows 4K, Dolby Vision, HDR, Dolby Atmos and 5.1 availability on Netflix title cards, regardless of your device.",
+  "content_scripts": [
+    {
+      "matches": ["https://www.netflix.com/*"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    }
+  ]
+}
