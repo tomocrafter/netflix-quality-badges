@@ -26,22 +26,30 @@ The badges describe what the title is offered in. Actually watching in 4K or Atm
 
 ## Releasing
 
-Push a `v*` tag and the release workflow builds the extension and attaches the zip to a GitHub release.
+The version lives in `src/manifest.json`; the userscript header is generated from it. Push a matching `v*` tag and the release workflow attaches the extension zip and the userscript to a GitHub release.
 
 ## Install
+
+### Userscript
+
+With [Tampermonkey](https://www.tampermonkey.net/) or [Violentmonkey](https://violentmonkey.github.io/) installed, open [netflix-quality-badges.user.js](https://github.com/tomocrafter/netflix-quality-badges/releases/latest/download/netflix-quality-badges.user.js) and install it. Updates are picked up automatically.
+
+On recent Chrome, Tampermonkey also needs **Allow User Scripts** turned on in its extension details page.
+
+### Chrome extension
 
 1. Download the latest `netflix-quality-badges-*.zip` from [Releases](https://github.com/tomocrafter/netflix-quality-badges/releases) and unzip it.
 2. Open `chrome://extensions` and enable Developer mode.
 3. Choose **Load unpacked** and select the unzipped directory.
 
-To build from source instead, run `bun install && bun run build` and load the `dist` directory.
+To build from source instead, run `bun install && bun run build` and load `dist/extension`.
 
 ## Development
 
 ```sh
 bun run lint       # oxlint
 bun run typecheck  # tsc
-bun run build      # bundle into dist/
+bun run build      # dist/extension and dist/netflix-quality-badges.user.js
 bun run check      # all of the above
 ```
 
