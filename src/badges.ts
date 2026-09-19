@@ -14,19 +14,20 @@ const FEATURES = [
   { label: "5.1", badges: ["AUDIO_FIVE_DOT_ONE"] },
 ] as const;
 
+const NO_LABELS: readonly string[] = [];
+
 export class BadgeStore {
-  readonly #badges = new Map<number, PlaybackBadges>();
+  readonly #labels = new Map<number, readonly string[]>();
   readonly #listeners = new Set<() => void>();
 
-  labelsOf(videoId: number | undefined): string[] {
-    const badges = videoId === undefined ? undefined : this.#badges.get(videoId);
-    return badges ? toLabels(badges) : [];
+  labelsOf(videoId: number | undefined): readonly string[] {
+    return videoId === undefined ? NO_LABELS : (this.#labels.get(videoId) ?? NO_LABELS);
   }
 
   addAll(entries: Iterable<BadgeEntry>): void {
     let added = false;
     for (const [videoId, badges] of entries) {
-      this.#badges.set(videoId, badges);
+      this.#labels.set(videoId, toLabels(badges));
       added = true;
     }
     if (added) for (const listener of this.#listeners) listener();

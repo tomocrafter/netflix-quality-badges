@@ -5,7 +5,7 @@ const METADATA = '[data-uia="videoMetadata--container"]';
 const MODAL_INFO = '[data-uia="previewModal--info-container"]';
 const TITLE_LINK = 'a[href*="/title/"]';
 const TRACKING_CONTEXT = "data-ui-tracking-context";
-const VIDEO_PATH = /\/(?:title|watch)\/(\d+)/;
+const VIDEO_ID = /[?&]jbv=(\d+)|\/(?:title|watch)\/(\d+)/;
 
 export interface Target {
   element: HTMLElement;
@@ -38,8 +38,8 @@ function modalVideoId(modal: HTMLElement): number | undefined {
 }
 
 function videoIdFromUrl(href: string): number | undefined {
-  const url = new URL(href, location.href);
-  const id = url.searchParams.get("jbv") ?? VIDEO_PATH.exec(url.pathname)?.[1];
+  const match = VIDEO_ID.exec(href);
+  const id = match?.[1] ?? match?.[2];
   return id ? Number(id) : undefined;
 }
 
