@@ -1,24 +1,58 @@
-.nqb-badges {
+.nqb-badge {
+  padding: 0 0.45em;
+  border: 1px solid rgb(255 255 255 / 40%);
+  border-radius: 3px;
+  color: rgb(255 255 255 / 90%);
+  font-size: 11.2px;
+  font-weight: 500;
+  line-height: 1.45;
+  white-space: nowrap;
+}
+
+.nqb-badge:is([data-label="4K"], [data-label="Atmos"]) {
+  border-color: transparent;
+  background: rgb(255 255 255 / 92%);
+  color: #141414;
+  font-weight: 700;
+}
+
+.nqb-badge:is([data-label="HD"], [data-label="SD"]) {
+  border-color: rgb(255 255 255 / 25%);
+  color: rgb(255 255 255 / 65%);
+}
+
+.nqb-overlay {
   position: absolute;
   top: 6px;
   right: 6px;
   z-index: 1;
   display: flex;
   gap: 3px;
+  padding: 3px;
+  border-radius: 4px;
+  background: rgb(20 20 20 / 78%);
+  backdrop-filter: blur(6px);
   pointer-events: none;
 }
 
-.nqb-badges > span {
-  padding: 1px 4px;
-  border-radius: 3px;
-  background: rgb(0 0 0 / 72%);
-  color: rgb(255 255 255 / 85%);
-  font: 700 10px/1.4 system-ui, sans-serif;
-  letter-spacing: 0.02em;
+.nqb-panel {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 6px 10px;
+  align-items: center;
+  margin: 8px 0 0;
+  font-size: 14px;
+  line-height: 20px;
 }
 
-.nqb-badges > [data-label="4K"],
-.nqb-badges > [data-label="Atmos"] {
-  background: rgb(229 9 20 / 90%);
-  color: #fff;
+.nqb-panel > dt {
+  color: #777;
+}
+
+.nqb-panel > dd {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
 }

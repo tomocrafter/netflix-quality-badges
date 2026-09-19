@@ -1,13 +1,15 @@
-import { BadgeStore } from "./badge-store";
-import { decorateTitleCards } from "./decorate";
-import { extractPlaybackBadges } from "./extract";
-import { observeGraphQLResponses } from "./graphql-interceptor";
-import { oncePerFrame } from "./schedule";
+import { BadgeStore } from "./badges";
+import { capturePlaybackBadges } from "./capture";
+import { cardArtworks, detailSections } from "./netflix-dom";
+import { renderCardOverlay, renderDetailPanel } from "./render";
 
 const store = new BadgeStore();
-const refresh = oncePerFrame(() => decorateTitleCards(store));
+const refresh = oncePerFrame(() => {
+  for (const { element, videoId } of cardArtworks()) renderCardOverlay(element, store.labelsOf(videoId));
+  for (const { element, videoId } of detailSections()) renderDetailPanel(element, store.labelsOf(videoId));
+});
 
-observeGraphQLResponses((body) => store.addAll(extractPlaybackBadges(body)));
+capturePlaybackBadges((entries) => store.addAll(entries));
 store.subscribe(refresh);
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -18,3 +20,15 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   refresh();
 });
+
+function oncePerFrame(task: () => void): () => void {
+  let pending = false;
+  return () => {
+    if (pending) return;
+    pending = true;
+    requestAnimationFrame(() => {
+      pending = false;
+      task();
+    });
+  };
+}
