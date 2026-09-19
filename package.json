@@ -1,0 +1,16 @@
+{
+  "name": "netflix-quality-badges",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "rm -rf dist && bun build src/main.ts --outfile dist/content.js --format iife --target browser && cp public/* dist/",
+    "lint": "oxlint",
+    "typecheck": "tsc",
+    "check": "bun run lint && bun run typecheck && bun run build"
+  },
+  "devDependencies": {
+    "oxlint": "^1.83.0",
+    "typescript": "^7.0.2"
+  }
+}
